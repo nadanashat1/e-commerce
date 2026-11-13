@@ -3,7 +3,7 @@ import { ReactComponent as IconBootstrapFill } from "bootstrap-icons/icons/boots
 
 const Invoice = () => {
   return (
-    <div className="container-fluid bg-secondary p-3">
+    <div className="container-fluid bg-secondary p-3"><div className="alert alert-warning">Static template invoice example. This is not a receipt for your demo orders. See My orders for saved orders.</div>
       <div className="bg-white p-5">
         <div>
           <div className="row g-3 mb-3 pb-3 border-bottom">

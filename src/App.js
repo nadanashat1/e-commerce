@@ -1,3 +1,4 @@
+import { ShopStatus } from "./shop";
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -36,7 +37,7 @@ function App() {
     <BrowserRouter>
       <React.Fragment>
         <Header />
-        <TopMenu />
+        <TopMenu /><ShopStatus />
         <Suspense
           fallback={
             <div className="text-white text-center mt-3">Loading...</div>

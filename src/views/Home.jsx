@@ -64,6 +64,7 @@ class HomeView extends Component {
 
     return (
       <React.Fragment>
+<div className="container my-3"><Link to="/category" className="btn btn-primary">Shop the connected demo catalog</Link></div>
         <Banner className="mb-3" id="carouselHomeBanner" data={data.banner} />
         <div className="container-fluid bg-light mb-3">
           <div className="row g-3">
