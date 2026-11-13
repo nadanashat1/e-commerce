@@ -1,7 +1,5 @@
 name: Redirect legacy Surge demo
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -17,6 +15,7 @@ jobs:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: |
+          test -n "$SURGE_LOGIN" && test -n "$SURGE_TOKEN" || { echo "Configure Surge credentials before publishing the legacy redirect."; exit 1; }
           mkdir redirect
           cat > redirect/index.html <<'HTML'
           <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="0;url=https://ecommerce-nada.vercel.app/"><title>E-Commerce demo moved</title></head><body><p>The database-backed demo has moved to <a href="https://ecommerce-nada.vercel.app/">ecommerce-nada.vercel.app</a>.</p></body></html>
