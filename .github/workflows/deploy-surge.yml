@@ -1,37 +1,26 @@
-# This is a basic workflow to help you get started with Actions
-
-name: deploy-surge
-
-# Controls when the workflow will run
+name: Redirect legacy Surge demo
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main]
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: read
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  redirect:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - name: Install Packages
-        run: npm install
-      - name: Surge deploy
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Publish redirect to the database-backed demo
         env:
-          CI: false # CRA treats warnings as errors in CI - re-enable if needed
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: |
-          export 
-          npm run deploy
+          mkdir redirect
+          cat > redirect/index.html <<'HTML'
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="0;url=https://ecommerce-nada.vercel.app/"><title>E-Commerce demo moved</title></head><body><p>The database-backed demo has moved to <a href="https://ecommerce-nada.vercel.app/">ecommerce-nada.vercel.app</a>.</p></body></html>
+          HTML
+          cp redirect/index.html redirect/200.html
+          cp redirect/index.html redirect/404.html
+          npx --yes surge@0.24.6 redirect e-commerce-template.surge.sh
