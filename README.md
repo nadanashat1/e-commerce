@@ -44,7 +44,7 @@ Never prefix `DATABASE_URL` with `REACT_APP_`, put it in client code, or commit 
 
 Vercel hosts both the frontend and API. `vercel.json` contains the build, API routing and SPA fallback configuration. Deploy the repository with `DATABASE_URL` configured for the required environments.
 
-The former static-only Surge address cannot run the API. Its GitHub Actions workflow now publishes a redirect to the Vercel demo, using the existing `SURGE_LOGIN` and `SURGE_TOKEN` repository secrets. It does not deploy the connected app to Surge.
+The former static-only Surge address cannot run the API. A manual GitHub Actions workflow is prepared to publish a redirect after `SURGE_LOGIN` and `SURGE_TOKEN` repository secrets are configured. The redirect has not been published: the legacy Surge address still serves the old frontend. Use the Vercel link above for the working connected app.
 
 ## Template attribution
 
